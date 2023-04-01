@@ -26,7 +26,13 @@ constructor(props) {
     }
     
     tracks.push(track); // if it doesnt match add to tracks array and reset the state
-    this.setState({playlistTracks: tracks});
+    this.setState( {playlistTracks: tracks });
+  }
+
+  removeTrack(track) {
+    let tracks = this.state.playlistTracks;
+    tracks = tracks.filter(currentTrack => currentTrack.id !== track.id);
+    this.setState( {playlistTracks: tracks} );
   }
 
   render() {

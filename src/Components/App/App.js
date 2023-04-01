@@ -48,6 +48,13 @@ constructor(props) {
 
   savePlaylist() {
     const trackURIs = this.state.playlistTracks.map(track => track.uri);
+    // after this method has been called and the promise has been fulfilled then we are going to pass an empty arrow function and call this.setState
+    Spotify.savePlayList(this.state.playlistName, trackURIs).then(() => {
+      this.setState({
+        playlistName: 'New Playlist',
+        playlistTracks: []
+      })
+    })
   }
 
   search(term) {

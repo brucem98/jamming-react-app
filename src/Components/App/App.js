@@ -16,7 +16,19 @@ constructor(props) {
     { name:'playlistName2', artist: 'playlistArtist2', album: 'playlistAlbum2', id: 5 },
     { name:'playlistName3', artist: 'playlistArtist3', album: 'playlistAlbum3', id: 6 }]
     }
+  this.addTrack = this.addTrack.bind(this);
   }
+
+  addTrack(track) {
+    let tracks = this.state.playlistTracks;
+    if(tracks.find(savedTrack => savedTrack.id === track.id)) {
+      return; // if the id of the track we attempt to pass in  matches an  id that's already in our tracks array we simply return this function and do nothing
+    }
+    
+    tracks.push(track); // if it doesnt match add to tracks array and reset the state
+    this.setState({playlistTracks: tracks});
+  }
+
   render() {
   return (
     <div>
@@ -24,7 +36,7 @@ constructor(props) {
       <div className="App">
         <SearchBar />
       <div className="App-playlist">
-        <SearchResults searchResults={this.state.searchResults}/>
+        <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/>
         <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks}/>
       </div>
       </div>
